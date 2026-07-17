@@ -39,7 +39,8 @@ Do not call bare `python`, `python3`, `pytest`, `ruff`, `pyright`, or
 [Local Development](docs/process/local-development.md) for focused test
 commands.
 
-One-off human shell use is outside this rule.
+This rule does not cover a one-off command a person types directly into a
+shell.
 
 ## Rule: Keep plans in the right docs folder
 
@@ -53,12 +54,13 @@ Prefer fixing the lint issue. If a suppression is correct, make it narrow, add
 a short reason next to it, and record it in
 `docs/process/lint-deviations.md`.
 
-This applies to inline suppressions and config-level ignores. Use basedpyright
-rule names for Pyright suppressions.
+This applies to inline suppressions and config-level ignores.
+
+Use basedpyright rule names for Pyright suppressions.
 
 <!-- workspace-conventions:end -->
 
-## Repo rules
+## Rules specific to this repo
 
 ## Rule: Keep the Python API stable
 
