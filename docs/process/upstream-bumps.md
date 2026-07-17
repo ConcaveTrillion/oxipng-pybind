@@ -112,8 +112,8 @@ PRs trigger normal PR CI checks.
 ## How Bump Pull Requests Merge
 
 Upstream bump pull requests auto-merge, using a rebase merge, only after CI
-and wheel checks pass. The workflow waits for wheel checks before enabling
-auto-merge. The scan must also report no broken exposed mappings.
+and wheel checks pass. The workflow waits for wheel checks before enabling auto-merge.
+The scan must also report no broken exposed mappings.
 
 The automation command is:
 
