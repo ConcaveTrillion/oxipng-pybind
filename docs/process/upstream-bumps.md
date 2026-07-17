@@ -7,7 +7,7 @@ last_verified: 2026-07-17
 
 `oxipng-pybind` tracks upstream `oxipng` releases.
 
-## Scheduled Check
+## How the Bump Workflow Runs
 
 The scheduled
 [`upstream-bump`](../../.github/workflows/upstream-bump.yml) workflow runs
@@ -24,8 +24,8 @@ The prepare job uses read-only repository permissions. It:
 7. Runs the full CI gate before any pull request is published.
 
 The publish job has write permissions. It opens or updates the bump pull
-request only when files changed, and the pull request body includes the
-upstream surface scan summary.
+request only when files changed. The pull request body includes the upstream
+surface scan summary.
 
 The job also opens or updates one `upstream-surface` triage issue per
 upstream version.
@@ -42,9 +42,13 @@ commit and `project.version` changed from the parent commit. For
 `workflow_run` events, it also confirms that `main` still matches the completed
 run.
 
-Before tagging, it waits for `ci.yml` and `api-matrix.yml` to pass on the same
-commit. It then checks the strict release tag, confirms that no matching Git
-tag exists, and checks that the version is absent from PyPI.
+Before tagging, the workflow runs these checks, in order:
+
+1. `ci.yml` passes on the same commit.
+2. `api-matrix.yml` passes on the same commit.
+3. The strict release tag check passes.
+4. No matching Git tag exists.
+5. The version is absent from PyPI.
 
 Automated tags use `v<project.version>`, such as `v10.1.1` or
 `v10.1.1.post1`. See [Release Artifacts](release-artifacts.md) for tag-driven
@@ -55,7 +59,7 @@ token that can push tags and trigger downstream workflows. Do not use the
 default `GITHUB_TOKEN` for release tags, because those tag pushes do not start
 the normal wheel publishing workflow.
 
-## Version Policy
+## How Versions Are Bumped
 
 The Python package version is the public wrapper release version.
 
@@ -85,8 +89,8 @@ The script checks crates.io for the target `oxipng` crate before editing
 files.
 
 If crates.io has not yet indexed the matching crate, the scheduled run exits
-successfully without changing any files and prints a message saying the run
-is retryable. The next scheduled or manual run can then pick up the same
+successfully without changing any files. It prints a message noting that the
+run is retryable. The next scheduled or manual run can then pick up the same
 upstream version.
 
 If the pinned upstream version is already current, the script leaves existing
@@ -105,11 +109,11 @@ Use the required repository settings in [GitHub Settings](github-settings.md).
 The `UPSTREAM_BUMP_TOKEN` token must be able to create pull requests so bump
 PRs trigger normal PR CI checks.
 
-## Merge Policy
+## How Bump Pull Requests Merge
 
-Upstream bump pull requests use rebase auto-merge after required checks pass.
-The workflow waits for wheel checks before enabling auto-merge. The scan must
-also report no broken exposed mappings.
+Upstream bump pull requests auto-merge, using a rebase merge, only after CI
+and wheel checks pass. The workflow waits for wheel checks before enabling
+auto-merge. The scan must also report no broken exposed mappings.
 
 The automation command is:
 
@@ -117,9 +121,8 @@ The automation command is:
 gh pr merge --auto --rebase --delete-branch
 ```
 
+If upstream `oxipng` changes break the wrapper, CI fails and the bump pull
+request remains open for manual repair.
+
 For manual repair, pull the PR branch, rebase it on current `main`, then merge
 with the rebase merge method.
-
-Automated upstream bump PRs are expected to auto-merge only when CI and wheel checks pass.
-If upstream `oxipng` changes break the wrapper, CI fails and the bump pull request
-remains open for manual repair.
