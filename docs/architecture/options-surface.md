@@ -7,7 +7,9 @@ last_verified: 2026-07-17
 
 Most Python keyword options map to Rust
 [`oxipng::Options`](https://docs.rs/oxipng/10.1.1/oxipng/struct.Options.html).
-`backup` and `preserve_attrs` are Python-only file options.
+
+Two options have no Rust equivalent: `backup` and `preserve_attrs` are
+Python-only file options.
 
 ## How Options Get Parsed and Validated
 
