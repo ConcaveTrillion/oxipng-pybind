@@ -10,7 +10,7 @@ Automation and local commands check dependency health.
 `cargo deny check` checks Rust dependencies.
 `uv audit --locked` checks Python lockfile dependencies.
 
-## Manual Dependency Checks
+## Run Dependency Checks Locally
 
 Run the audit gate before dependency work:
 
@@ -52,17 +52,19 @@ dependency to a version its parent does not request.
 
 Each override needs a comment naming the advisory or reason it exists.
 
-Re-audit every override after each dependency upgrade. An override can outlive
-its reason: the parent may ship a fix, or the forced version may drift far
-enough to break the parent. For each override, confirm three things:
+Re-audit every override after each dependency upgrade.
+
+An override can outlive its reason. Its parent may ship a fix, or the forced
+version may drift far enough to break the parent. For each override, confirm
+three things:
 
 - the advisory or reason still applies
 - the parent still works with the forced version
 - the floor still clears the advisory
 
 `make override-audit` automates the first check. It re-resolves the project
-without its overrides in an isolated virtual project, then fails if any
-override's floor is already met by the natural resolution — meaning the
+without its overrides in an isolated virtual project. It then fails if any
+override's floor is already met by the natural resolution, which means the
 override is removable.
 
 The weekly refresh runs `make override-audit` as a dedicated step, so a
@@ -73,9 +75,9 @@ Remove the override once the parent requests a safe version on its own.
 
 Current overrides:
 
-- `click>=8.3.3` — `gitlint-core[trusted-deps]` pins the vulnerable
+- `click>=8.3.3`: `gitlint-core[trusted-deps]` pins the vulnerable
   `click==8.1.3` (PYSEC-2026-2132, command injection in `click.edit()`).
-  `click` is a dev-only transitive dependency, and commit-msg linting runs in
+  `click` is a dev-only transitive dependency. Commit-msg linting runs in
   pre-commit's own environment, so the override only affects the audited
   lockfile. Remove it if `gitlint` ships a release that drops the pin.
 
@@ -89,19 +91,21 @@ The prepare job has read-only repository permissions. It refreshes `uv.lock` and
 third-party notices. It then applies lint fixes, runs dependency audits, and
 runs full CI.
 
-The "Run CI" step records its result as the `ci-passed` job output and does not
-abort the job on failure. This matters because a GitHub Action pin bump produces
-an unreviewed SHA, which the reviewed-action-ref security gate rejects by design,
-so `make ci` fails. The prepare job therefore continues, detects changes
-regardless of CI outcome, and lets the publish job open a PR for human review.
+The "Run CI" step records its result as the `ci-passed` job output. It does not
+abort the job on failure.
+
+This matters because a GitHub Action pin bump produces an unreviewed SHA, and
+the reviewed-action-ref security gate rejects that SHA by design, so `make ci`
+fails. The prepare job continues anyway. It detects changes regardless of the
+CI outcome and lets the publish job open a PR for human review.
 
 A separate write-scoped publish job opens or updates a dependency refresh PR
-only when the prepare job changed files. It labels the PR `ci-passed` when local
-CI was green and `ci-failed` when it was red, and threads the `ci-passed` value
-into the PR body.
+only when the prepare job changed files. It labels the PR `ci-passed` when
+local CI was green and `ci-failed` when it was red. It also threads the
+`ci-passed` value into the PR body.
 
 A `ci-failed` PR opens as a normal PR awaiting human review. It never
-auto-merges. Review the new pins (or other changes) before merge.
+auto-merges. Review the new pins or other changes before merge.
 
 The prepare job runs `scripts/classify_dependency_refresh.py --base-ref origin/main`
 after it detects changed files. The publish job adds the classifier label and
@@ -115,7 +119,7 @@ Merge behavior differs by classification:
 
 - `no-release-needed` PRs with a green prepare-job CI (`ci-passed`) may
   auto-merge after required checks pass.
-- `release-needed` PRs open but do not auto-merge; they stay open for wrapper
+- `release-needed` PRs open but do not auto-merge. They stay open for wrapper
   version review.
 - Any `ci-failed` PR also stays open for human review and never auto-merges,
   regardless of release classification.
@@ -139,7 +143,8 @@ selector from the latest stable Rust release tag.
 
 The scheduled refresh PR fails on purpose when a pin bump introduces an
 unreviewed SHA. CI bumps the workflow YAML but not the reviewed allowlist in
-`tests/helpers/workflows.py`, so the security gate rejects the mismatch.
+`tests/helpers/workflows.py`. That mismatch makes the security gate reject the
+change.
 
 Turning that PR green is the human sign-off.
 
@@ -149,10 +154,10 @@ Do it locally:
 make refresh-actions
 ```
 
-This bumps the workflow pins, syncs `REVIEWED_ACTION_REFS`,
+This bumps the workflow pins. It syncs `REVIEWED_ACTION_REFS`,
 `RUST_TOOLCHAIN_VERSION`, and the `Makefile` `RUST_VERSION` bootstrap pin to
-match, and prints a review report with each action's repository and changelog
-link.
+match. It also prints a review report with each action's repository and
+changelog link.
 
 Review the diff and the linked release notes, then commit.
 
