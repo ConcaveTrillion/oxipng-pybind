@@ -5,7 +5,7 @@ last_verified: 2026-07-17
 ---
 # Documentation Map
 
-Use this map to find the right project doc.
+This map shows where to find each project doc.
 
 ## Agent Index
 
