@@ -5,7 +5,7 @@ last_verified: 2026-07-17
 ---
 # GitHub Settings
 
-Repository automation assumes these GitHub settings are enabled.
+This repo's automation requires the GitHub settings on this page to be turned on.
 
 Maintainers can audit API-visible settings with:
 
@@ -13,7 +13,7 @@ Maintainers can audit API-visible settings with:
 uv run --group dev python scripts/audit_github_settings.py
 ```
 
-## Required Settings
+## Required Repository Settings
 
 - Protect `main`.
 - Allow only rebase merges. Disable merge commits and squash merges.
