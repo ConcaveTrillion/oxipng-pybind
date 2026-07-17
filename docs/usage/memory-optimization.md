@@ -49,8 +49,8 @@ value types, and file-only options.
 
 ## Untrusted input
 
-For bytes from untrusted users, see
-[Handle Untrusted Input](untrusted-input.md).
+See [Handle Untrusted Input](untrusted-input.md) when `data` comes from
+untrusted users.
 
 ## stdin and stdout
 
