@@ -2,9 +2,10 @@
 
 Set a timeout and a decompressed-size limit whenever you optimize PNG data
 from an untrusted source, such as a user upload, a queue, or another
-attacker-controlled input. PNG optimization can use a lot of CPU and memory,
-so an untrusted file can force the optimizer to run long or allocate large
-buffers.
+attacker-controlled input.
+
+PNG optimization can use a lot of CPU and memory. An untrusted file can force
+the optimizer to run long or allocate large buffers.
 
 ## Set a timeout and a size limit
 
