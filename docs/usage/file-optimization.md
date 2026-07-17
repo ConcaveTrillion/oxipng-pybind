@@ -69,15 +69,14 @@ from oxipng import optimize
 optimize(input="cover.png", output="out.png", preserve_attrs=True)
 ```
 
-`backup` and `preserve_attrs` are valid only for `optimize`. Other APIs reject
-them.
+Only `optimize` accepts `backup` and `preserve_attrs`. Other APIs reject them.
 
-stdin and stdout optimization are caller-owned. See
+You manage stdin and stdout optimization yourself. See
 [Optimize PNG data in memory](memory-optimization.md#stdin-and-stdout).
 
 ## Errors optimize can raise
 
-Caller errors raise `TypeError` or `ValueError`. File I/O errors use normal
+Caller errors raise `TypeError` or `ValueError`. File I/O errors raise normal
 Python file exceptions. PNG decode and optimization errors raise `PngError`.
 
 See [Error Mapping](../architecture/overview.md#error-mapping) for the full
