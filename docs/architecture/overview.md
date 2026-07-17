@@ -48,9 +48,10 @@ those paths to `PathBuf` values.
 
 Rust handles file-only controls, such as `backup` and `preserve_attrs`.
 
-Rust then calls `oxipng::optimize` with the GIL released. If `output` is
-omitted, Rust `oxipng` writes in place; if `output` is set, it writes to that
-path instead.
+Rust then calls `oxipng::optimize` with the GIL released.
+
+If `output` is omitted, Rust `oxipng` writes in place. If `output` is set, it
+writes to that path instead.
 
 ## Memory Optimization Flow
 
@@ -60,9 +61,10 @@ path instead.
 - `bytearray`
 - `memoryview`
 
-The binding copies the input into Rust memory before it releases the GIL. Rust
-calls `oxipng::optimize_from_memory`. The Python return value is optimized PNG
-bytes.
+The binding copies the input into Rust memory, releases the GIL, then calls
+`oxipng::optimize_from_memory`.
+
+The Python return value is optimized PNG bytes.
 
 Memory mode, `analyze`, and `RawImage.create_optimized_png` reject file-only
 options. See [Options Surface](options-surface.md) for supported options.
@@ -72,8 +74,9 @@ options. See [Options Surface](options-surface.md) for supported options.
 `RawImage(width=..., height=..., color_type=..., bit_depth=..., data=...)`
 wraps Rust `oxipng::RawImage`. The stable constructor does not warn.
 
-Python `ColorType` and `BitDepth` values become Rust raw-image metadata. Packed
-pixel bytes are copied into Rust memory.
+Python `ColorType` and `BitDepth` values become Rust raw-image metadata.
+
+Packed pixel bytes are copied into Rust memory.
 
 `RawImage.create_optimized_png(...)` uses the memory-mode option parser and
 returns PNG bytes.
