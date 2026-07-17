@@ -5,15 +5,18 @@ last_verified: 2026-07-17
 ---
 # Test Architecture
 
-The test suite reads as behavior contracts grouped by domain, backed by a small
-layer of directly-tested helpers. Tests exercise the Python binding, automation,
-packaging, and release policy. They do not test optimizer behavior, which stays
-in upstream `oxipng`.
+The test suite is organized as behavior contracts, one file per domain,
+backed by a small set of directly-tested helper modules. Tests cover the
+Python binding, automation scripts, packaging, and release policy.
+
+The suite does not test PNG optimizer behavior. That logic, and its tests,
+stay in the upstream `oxipng` crate.
 
 ## Shared helpers
 
-`tests/helpers/` holds narrow, reusable helpers. Helpers that could weaken many
-tests carry their own direct tests (`tests/test_helpers_*.py`).
+`tests/helpers/` holds small, reusable helper modules. A helper gets its own
+direct tests, in `tests/test_helpers_*.py`, when a bug in it could weaken many
+other tests.
 
 | Module | Owns |
 | --- | --- |
@@ -25,7 +28,7 @@ tests carry their own direct tests (`tests/test_helpers_*.py`).
 
 ## Domain test files
 
-Each public contract area owns a focused file instead of one mixed module.
+Each public contract area owns a focused file, not one mixed module.
 
 - API surface and per-entry-point behavior:
   `test_api_surface.py`, `test_optimize_file_api.py`,
@@ -43,11 +46,11 @@ Each public contract area owns a focused file instead of one mixed module.
   `test_release_artifacts.py`, `test_wheel_tags.py`, `test_release_checks.py`,
   `test_release_version.py`.
 
-`tests/typecheck/` holds basedpyright-only fixtures that are not pytest modules.
-Their value depends on basedpyright still reporting unused `pyright: ignore`
-comments.
+`tests/typecheck/` holds fixtures for basedpyright only; they are not pytest
+modules. They only work as long as basedpyright still reports unused
+`pyright: ignore` comments.
 
-## Durable principles
+## Test design principles
 
 - Pair a clear good state with a meaningful bad state. Turn repeated
   constructor and option cases into parametrized contract tables.
@@ -59,7 +62,7 @@ comments.
   suite. Keep migration-guide warning examples, which are user-visible behavior.
 - Keep stdlib-safe PNG coverage on lanes that intentionally lack Pillow.
 
-## Evidence
+## Verification
 
 - Code: `tests/helpers/` (`png.py`, `warnings.py`, `automation.py`,
   `artifacts.py`, `workflows.py`)
@@ -67,6 +70,6 @@ comments.
   `tests/test_option_validation.py`, `tests/test_pyoxipng_compat.py`,
   `tests/test_workflow_*.py`, `tests/test_release_*.py`, `tests/test_wheel_tags.py`,
   `tests/typecheck/typing_filter_options.py`
-- Verified: 2026-07-15 — plan target structure cross-checked against the current
-  `tests/` tree; the mixed `test_api.py`, `test_workflows.py`, and
+- Verified 2026-07-15: this plan's target structure was checked against the
+  current `tests/` tree. The mixed `test_api.py`, `test_workflows.py`, and
   `test_scripts.py` modules are gone.
