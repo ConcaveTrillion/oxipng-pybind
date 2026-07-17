@@ -9,7 +9,7 @@ It wraps Rust [`oxipng::RawImage`].
 
 ## Create a One-Pixel RGBA PNG
 
-Create a one-pixel RGBA PNG:
+This code builds a one-pixel RGBA PNG:
 
 ```python
 from oxipng import BitDepth, ColorType, RawImage
@@ -113,6 +113,7 @@ rgb = RawImage(
 
 `RawImage` does not accept `transparent` for indexed, grayscale-alpha, or RGBA
 images. Use alpha values in palette entries for indexed transparency instead.
+
 Transparent values must fit the selected bit depth.
 
 ## PNG Chunks
@@ -133,9 +134,11 @@ raw.add_png_chunk(b"tEXt", b"Comment\x00created from raw pixels")
 png_bytes = raw.create_optimized_png()
 ```
 
-The chunk name must be four ASCII letters. It must be public, ancillary, and
-safe to copy. The binding rejects structural chunks, such as `IHDR`, `PLTE`,
-`IDAT`, `IEND`, `tRNS`, and `iCCP`.
+The chunk name must be four ASCII letters. It must also be public, ancillary,
+and safe to copy.
+
+The binding rejects structural chunks, such as `IHDR`, `PLTE`, `IDAT`, `IEND`,
+`tRNS`, and `iCCP`.
 
 ## ICC Profiles
 
@@ -156,7 +159,7 @@ raw.add_icc_profile(icc_profile_bytes)
 png_bytes = raw.create_optimized_png()
 ```
 
-## Errors
+## Errors RawImage Can Raise
 
 Bad argument values raise `ValueError`. Examples include invalid bit depths,
 color types, palette values, transparency values, and chunk names.
