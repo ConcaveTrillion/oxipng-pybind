@@ -63,7 +63,7 @@ Pylint over code that imports `oxipng`. Pylint 4.0.5 uses Astroid 4.0.4, which
 can recurse while transforming this facade's runtime Python shapes.
 
 Keep the current package-side workarounds until a supported Pylint release can
-analyze a broad consumer import without Astroid recursion warnings:
+analyze a broad consumer import without Astroid recursion warnings.
 
 These deviations intentionally make the runtime facade uglier than the
 straightforward implementation. The `.post2` Pylint/Astroid workaround commit
