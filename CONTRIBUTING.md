@@ -1,13 +1,12 @@
 # Contributing
 
-Thanks for improving `oxipng-pybind`.
-
 This project is a Python wrapper around upstream Rust `oxipng`. It aims to be
-a drop-in replacement for `pyoxipng`, with a stable Python API.
+a drop-in replacement for `pyoxipng`, with a stable Python API. Thanks for
+helping improve it.
 
-## Before you start
+## Read these docs first
 
-Read these files first:
+Read these files before you start:
 
 - [README](README.md)
 - [Conventions](CONVENTIONS.md)
@@ -20,7 +19,7 @@ When writing docs or user-facing text, also read
 
 Check [Unfinished Work](docs/plans/unfinished-work.md) before large changes.
 
-## Setup
+## Set up the project
 
 Run setup before local work:
 
@@ -31,7 +30,7 @@ make setup
 See [Local Development](docs/process/local-development.md) for setup details,
 editable extension rules, and focused test commands.
 
-## Common checks
+## Run checks locally
 
 Use Make targets when possible. Run focused checks while you work, then run
 the full CI gate before review:
@@ -43,7 +42,7 @@ make ci
 Do not use bare `python -m pytest`. Python tests need the project environment
 and the compiled extension.
 
-## Code changes
+## Making code changes
 
 Keep changes small and focused. Add tests for new behavior. Update docs when
 user-facing behavior changes.
@@ -52,7 +51,7 @@ Follow [Conventions](CONVENTIONS.md) for API stability, upstream `oxipng`
 boundaries, predictable errors, release artifacts, dependency refreshes, and
 license rules.
 
-## Dependency changes
+## Updating dependencies
 
 This repo has Rust and Python lockfiles. For dependency work, run:
 
@@ -64,15 +63,17 @@ make dependency-refresh-check
 Follow [Dependency Health](docs/process/dependency-health.md) for refresh
 classification, audit handling, and notice updates.
 
-## Release changes
+## Preparing a release
 
-Release wheels target Python 3.10+ ABI3. Publishing uses PyPI Trusted
-Publishing from GitHub Actions. Do not add PyPI password or API-token secrets.
+Release wheels target Python 3.10+ ABI3.
+
+Publishing uses PyPI Trusted Publishing from GitHub Actions. Do not add PyPI
+password or API-token secrets.
 
 Before release work, read [Release Artifacts](docs/process/release-artifacts.md)
 and [Rust oxipng updates](docs/process/upstream-bumps.md).
 
-## Pull requests
+## Submitting a pull request
 
 Before asking for review, run `make ci`. If the change touches release, wheel,
 or dependency automation, also run the focused checks for that area.
