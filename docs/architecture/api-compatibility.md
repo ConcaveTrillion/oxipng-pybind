@@ -11,7 +11,7 @@ safe for normal callers. They must not emit compatibility warnings.
 For option values, see [Options Surface](options-surface.md). For old pyoxipng
 code, see [Move from pyoxipng](../usage/pyoxipng-migration.md).
 
-## Stable API
+## Stable API Names
 
 These top-level names are the public contract:
 
@@ -40,10 +40,11 @@ The stable method and factory surface includes:
 - `Deflaters.zopfli`
 - `FilterStrategy.predefined`
 
-## pyoxipng Compatibility
+## pyoxipng Compatibility Shims
 
-`pyoxipng` exposed older Python shapes. Some do not match Rust `oxipng` option
-contracts. This package keeps selected old shapes as migration paths.
+This package keeps selected old `pyoxipng` shapes as migration paths.
+`pyoxipng` exposed these older Python shapes, and some do not match Rust
+`oxipng`'s option contracts.
 
 Common warning-emitting paths include:
 
@@ -72,9 +73,9 @@ These paths are not supported:
 
 Unsupported paths may fail, warn, or stay absent.
 
-## Machine-Readable Surface Record
+## The Machine-Readable Surface Record
 
 The machine-readable Rust surface record is
 [oxipng-10.1.1.toml](../api-surface/oxipng-10.1.1.toml).
 
-No generated Rust surface additions have been recorded for 10.1.1.
+This document has no generated Rust surface additions for 10.1.1.
