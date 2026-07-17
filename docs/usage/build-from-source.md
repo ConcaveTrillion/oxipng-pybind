@@ -31,8 +31,10 @@ The build backend is [maturin](https://www.maturin.rs/).
 ## Build From an sdist
 
 Use this path to build from the published release source instead of a Git
-checkout. A released source distribution, or sdist, includes the source
-needed to build a wheel locally.
+checkout.
+
+A released source distribution, or sdist, includes the source needed to
+build a wheel locally.
 
 ```bash
 python -m pip download --no-binary oxipng-pybind oxipng-pybind
@@ -76,7 +78,7 @@ Do not run this in a checkout with uncommitted generated files you want to keep.
 For released wheel and source distribution policy, see
 [Release Artifacts](../process/release-artifacts.md).
 
-## Troubleshooting Source Builds
+## Fix a Failed Build
 
 Source builds are slower than wheel installs.
 
