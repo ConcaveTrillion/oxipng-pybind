@@ -26,10 +26,13 @@ Manual TestPyPI runs rewrite `project.version` only in the workflow workspace.
 They add a `.devNNN` suffix from `GITHUB_RUN_NUMBER` and
 `GITHUB_RUN_ATTEMPT`. This avoids collisions between rehearsal uploads.
 
-Real PyPI publishing is tag-driven. Push a strict final release tag, or let
-[Upstream Bumps](upstream-bumps.md#release-tags) create one for an automated
-upstream bump. The wheels workflow builds fresh artifacts from that tag before
-publishing. For manual operator steps, see [Manual Release](manual-release.md).
+Real PyPI publishing is tag-driven. Push a strict final release tag yourself,
+or let [Upstream Bumps](upstream-bumps.md#release-tags) create one for an
+automated upstream bump.
+
+The wheels workflow then builds fresh artifacts from that tag before
+publishing them. For the manual operator steps, see
+[Manual Release](manual-release.md).
 
 Valid PyPI release tags:
 
@@ -64,7 +67,7 @@ The TestPyPI Trusted Publisher must be configured with:
 - workflow: `wheels.yml`
 - environment: `testpypi`
 
-## Wheel Tag Requirements
+## Required Wheel Tags
 
 Release wheels use `cp310-abi3` for Python 3.10 and `cp311-abi3` for Python
 3.11 and newer.
@@ -80,7 +83,7 @@ Expected platform tags are:
 - `macosx_*_arm64`
 - `win_amd64`
 
-## Smoke Checks
+## How Each Wheel Is Smoke-Tested
 
 Each wheel installs into a clean virtual environment. Then
 [`scripts/smoke_wheel.py`](../../scripts/smoke_wheel.py) imports the package,
@@ -91,14 +94,14 @@ wheel typing files:
 - `oxipng/py.typed`
 
 PNG verification differs by Python version. Python 3.11+ lanes use Pillow.
-The Python 3.10 lane uses the script's stdlib PNG checks instead, so release
-smoke tests do not depend on third-party wheels that no longer publish
-CPython 3.10 artifacts.
+The Python 3.10 lane uses the script's stdlib PNG checks instead. This way,
+release smoke tests do not depend on third-party wheels that no longer
+publish CPython 3.10 artifacts.
 
 Linux aarch64 uses GitHub's native `ubuntu-24.04-arm` runner. Runtime smoke
 testing is required for that target.
 
-## Artifact Content Verification
+## How Artifact Contents Are Verified
 
 [`scripts/verify_release_artifacts.py`](../../scripts/verify_release_artifacts.py)
 opens artifacts before upload and before publish.
@@ -111,7 +114,9 @@ For wheels, it verifies:
 - exactly one native extension under the `_oxipng` package layout.
 
 For sdists, it verifies required source, package, metadata, license, and notice
-files. The workflow also builds and verifies a wheel from the sdist.
+files.
+
+The workflow also builds and verifies a wheel from the sdist.
 
 The PyPI publish job runs only after all wheel jobs, the sdist job, and
 release tag validation pass.
