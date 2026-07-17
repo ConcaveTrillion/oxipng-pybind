@@ -2,7 +2,7 @@
   "schema_version": 1,
   "issues": [
     {
-      "id": "cfb333da9b5cdf536bead168651333a6a129f3ba",
+      "id": "6a9f0056331f4d9fa27eb2d8e0a19ccdc84cd6bf",
       "type": "dangling",
       "path": "docs/architecture/options-surface.md",
       "detail": "-> ../../oxipng/__init__.pyi",
