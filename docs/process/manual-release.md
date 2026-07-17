@@ -7,16 +7,16 @@ last_verified: 2026-07-17
 
 Use this process when publishing a release by hand.
 
-For artifact rules, supported wheel tags, and Trusted Publishing setup, see
-[Release Artifacts](release-artifacts.md).
+See [Release Artifacts](release-artifacts.md) for artifact rules, supported
+wheel tags, and Trusted Publishing setup.
 
 ## Set the Version Before Tagging
 
 Choose the exact PyPI version first. The release tag must match
 `project.version` in `pyproject.toml`.
 
-For wrapper-only corrections, use a Python post release such as
-`10.1.1.post1`.
+Use a Python post release, such as `10.1.1.post1`, for wrapper-only
+corrections.
 
 Keep the Cargo package version on the upstream semver base, such as
 `10.1.1`. Cargo does not use Python `.postN` versions.
@@ -82,7 +82,7 @@ The tag starts the real PyPI publish workflow. The workflow validates that:
 
 If validation fails, the workflow stops before publishing.
 
-## Monitor Publish
+## Monitor the Publish Workflow
 
 Watch the tag-triggered `wheels` workflow.
 
@@ -103,13 +103,13 @@ version, sdist, and wheels.
 If the tag was pushed before the version commit, the release validation should
 fail before publish.
 
-Fix the version on `main`, wait for checks, then move the tag only if no
-artifacts were published:
+Fix the version on `main` and wait for checks. Then move the tag, but only if
+no artifacts were published:
 
 ```bash
 git tag -f v10.1.1.post1 <fixed-commit>
 git push --force origin v10.1.1.post1
 ```
 
-Do not move a tag after PyPI publishing succeeds. PyPI files are immutable;
-publish a new post release instead.
+Do not move a tag after PyPI publishing succeeds. PyPI files are immutable.
+Publish a new post release instead.
