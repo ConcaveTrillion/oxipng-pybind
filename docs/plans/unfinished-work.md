@@ -23,8 +23,8 @@ Repository release automation is implemented.
 - `RELEASE_TAG_TOKEN`, `UPSTREAM_BUMP_TOKEN`, and `DEPENDENCY_REFRESH_TOKEN`
   exist as repository secrets.
 - TestPyPI publishing passed through `.github/workflows/wheels.yml`.
-- PyPI hosts the `oxipng-pybind` project, currently at `10.1.1.post3`
-  (releases `10.1.1`, `.post1`, `.post2`, `.post3`).
+- PyPI hosts the `oxipng-pybind` project, currently at `10.1.1.post3`.
+  Earlier releases were `10.1.1`, `.post1`, and `.post2`.
 
 See the durable process docs for implementation details:
 
@@ -40,12 +40,10 @@ See the durable process docs for implementation details:
 Upstream `oxipng` is still at `10.1.1`, which matches this repo.
 
 When upstream publishes a newer release on GitHub and crates.io, run the
-hosted upstream bump workflow.
+hosted upstream bump workflow. Then confirm each of these steps:
 
-Confirm that the bump PR merges only after required checks pass.
-
-After the bump lands on `main`, confirm that
-`.github/workflows/release-tag.yml` creates the matching release tag.
-
-Confirm that `.github/workflows/wheels.yml` then publishes that tag through
-`environment: pypi`.
+1. The bump PR merges only after required checks pass.
+2. After the bump lands on `main`, `.github/workflows/release-tag.yml`
+   creates the matching release tag.
+3. `.github/workflows/wheels.yml` then publishes that tag through
+   `environment: pypi`.
