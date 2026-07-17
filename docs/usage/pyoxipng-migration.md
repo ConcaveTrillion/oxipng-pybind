@@ -80,7 +80,7 @@ predefined filters from a set.
 For full option values, see
 [Options Surface](../architecture/options-surface.md#filter-values).
 
-## Interlacing
+## Interlacing values are lowercase now
 
 Use lowercase names:
 
@@ -124,8 +124,10 @@ data = bytes([255, 0, 0, 255])
 raw = RawImage(data, 1, 1, color_type=ColorType.rgba())
 ```
 
-Do not mix the two shapes. The old-order path emits `DeprecationWarning`, and
-so does the callable `ColorType` value.
+Do not mix the two shapes.
+
+The old-order path emits `DeprecationWarning`. So does the callable
+`ColorType` value.
 
 This call is rejected:
 
@@ -142,7 +144,7 @@ order requires an enum value such as `ColorType.rgba`.
 For constructor details, defaults, palette rules, and examples, see
 [Create PNGs From Raw Pixels](raw-image.md).
 
-## Color Types
+## Color types use enum values now
 
 Use enum values in new code:
 
@@ -152,7 +154,7 @@ ColorType.rgb
 ColorType.indexed
 ```
 
-Callable color types are compatibility paths:
+Callable color types are compatibility paths. They emit `DeprecationWarning`:
 
 ```python
 ColorType.rgba()
@@ -160,12 +162,10 @@ ColorType.rgb(None)
 ColorType.indexed([(255, 0, 0)])
 ```
 
-They emit `DeprecationWarning`.
-
 For palette and transparency rules, see
 [Create PNGs From Raw Pixels](raw-image.md).
 
-## Other Stable Options
+## Other options that already match
 
 Common optimization options are stable. Use Python option names directly:
 
@@ -207,9 +207,9 @@ strip = StripChunks.all()
 For the full option surface, see
 [Options Surface](../architecture/options-surface.md).
 
-## stdin and stdout
+## You own stdin and stdout
 
-stdin and stdout are caller-owned. Read bytes first. Then call
+Your code owns stdin and stdout. Read the bytes yourself, then call
 `optimize_from_memory`.
 
 See
