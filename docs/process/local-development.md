@@ -30,8 +30,8 @@ See the [`setup` target](../../Makefile) for the exact commands.
 
 ## Rebuilding the extension after Rust changes
 
-`oxipng-pybind` imports the compiled `_oxipng` extension. Rebuild it after Rust
-changes:
+Rebuild the compiled `_oxipng` extension after any Rust change, since
+`oxipng-pybind` imports it:
 
 ```bash
 make develop
@@ -45,8 +45,10 @@ uv run --no-sync --group dev pytest tests/test_optimize_memory_api.py -q
 
 Keep `--no-sync` on focused pytest commands. Without it, `uv run --group dev`
 can resync the environment and leave Python importing an older `_oxipng`
-extension. This usually appears as an `ImportError` for a symbol that exists in
-current source.
+extension.
+
+That stale import usually shows up as an `ImportError` for a symbol that
+exists in current source.
 
 ## Choosing a test target
 
