@@ -1,3 +1,8 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # Upstream Bumps
 
 `oxipng-pybind` tracks upstream `oxipng` releases.

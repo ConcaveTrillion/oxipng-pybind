@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "issues": [
+    {
+      "id": "cfb333da9b5cdf536bead168651333a6a129f3ba",
+      "type": "dangling",
+      "path": "docs/architecture/options-surface.md",
+      "detail": "-> ../../oxipng/__init__.pyi",
+      "severity": "error"
+    },
+    {
+      "id": "877adb24559ae014d725735b900962f8d1a3b566",
+      "type": "dangling",
+      "path": "docs/usage/file-optimization.md",
+      "detail": "-> ../../oxipng/__init__.pyi",
+      "severity": "error"
+    },
+    {
+      "id": "a2161713bc0f241aece35b7f9bcd6f32b5729507",
+      "type": "dangling",
+      "path": "docs/usage/file-optimization.md",
+      "detail": "-> ../../oxipng/__init__.pyi",
+      "severity": "error"
+    },
+    {
+      "id": "5a7644ffed46ceaaec295ba67de4c4a08ed891bc",
+      "type": "dangling",
+      "path": "docs/usage/file-optimization.md",
+      "detail": "-> ../../oxipng/__init__.pyi",
+      "severity": "error"
+    },
+    {
+      "id": "e19cf2205d30a988e5793f1ff380a8be59d71cb3",
+      "type": "dangling",
+      "path": "docs/usage/memory-optimization.md",
+      "detail": "-> ../../oxipng/__init__.pyi",
+      "severity": "error"
+    }
+  ]
+}

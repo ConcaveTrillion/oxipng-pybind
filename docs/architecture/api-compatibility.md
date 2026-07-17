@@ -1,3 +1,8 @@
+---
+kind: architecture
+status: built
+last_verified: 2026-07-17
+---
 # API Compatibility
 
 `oxipng-pybind` exposes a small stable API over Rust `oxipng`. Stable names are

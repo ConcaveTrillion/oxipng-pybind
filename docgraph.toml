@@ -7,7 +7,7 @@ mode = "git"
 convention = "agent-index"
 freshness_days = 30
 include = ['*.md', 'docs/**/*.md']
-exclude = ['agent/**', 'agents/**', 'skills/**', 'prompts/**', '.claude/**', '.codex/**', '.cursor/**', '.docgraph/**']
+exclude = ['agent/**', 'agents/**', 'skills/**', 'prompts/**', '.claude/**', '.codex/**', '.cursor/**', '.docgraph/**', 'CLAUDE.md', 'PYPI-DESCRIPTION.md']
 
 # Non-md files scanned for reverse references to indexed markdown docs.
 # Default hard-excludes (.git, .venv, node_modules, .worktrees, dot-dirs) always apply.

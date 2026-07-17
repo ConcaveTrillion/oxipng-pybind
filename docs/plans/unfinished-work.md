@@ -1,3 +1,8 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # Unfinished Work
 
 This file tracks active work that is not covered by durable process docs.

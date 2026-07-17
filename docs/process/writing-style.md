@@ -1,3 +1,8 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # Writing Style
 
 Use this style for docs, reports, issue text, PR text, and user-facing copy.

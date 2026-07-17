@@ -1,3 +1,8 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # Manual Release
 
 Use this process when publishing a release by hand.

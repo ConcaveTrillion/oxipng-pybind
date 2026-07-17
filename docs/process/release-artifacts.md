@@ -1,3 +1,8 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # Release Artifacts
 
 PyPI wheels are the main release artifact for `oxipng-pybind`. The release

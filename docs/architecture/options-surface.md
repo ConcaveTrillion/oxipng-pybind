@@ -1,3 +1,8 @@
+---
+kind: architecture
+status: built
+last_verified: 2026-07-17
+---
 # Options Surface
 
 Most Python keyword options map to Rust

@@ -1,3 +1,8 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # GitHub Settings
 
 Repository automation assumes these GitHub settings are enabled.

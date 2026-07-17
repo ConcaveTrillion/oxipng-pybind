@@ -1,3 +1,8 @@
+---
+kind: architecture
+status: built
+last_verified: 2026-07-17
+---
 # Architecture Overview
 
 `oxipng-pybind` is a Python package that wraps the Rust `oxipng` crate. Users

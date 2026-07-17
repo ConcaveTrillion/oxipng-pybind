@@ -28,6 +28,12 @@ Use this map to find the right project doc.
 This repo keeps only current docs folders. Use Git history for old plans,
 specs, and reports.
 
+## Agent context
+
+- [Agent guidance (AGENTS.md)](../AGENTS.md)
+- [Docgraph rules (DOCGRAPH.md)](../DOCGRAPH.md)
+- [Codex-specific context (CODEX.md)](../CODEX.md)
+
 ## Usage
 
 - [Optimize PNG files](usage/file-optimization.md)

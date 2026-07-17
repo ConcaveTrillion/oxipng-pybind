@@ -1,3 +1,8 @@
+---
+kind: architecture
+status: built
+last_verified: 2026-07-17
+---
 # Test Architecture
 
 The test suite reads as behavior contracts grouped by domain, backed by a small

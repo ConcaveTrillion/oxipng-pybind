@@ -1,3 +1,8 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # Local Development
 
 Run setup before local work:
@@ -14,7 +19,7 @@ that local installer path.
 
 ## What make setup does
 
-`make setup` installs Rust `1.96.0` and `cargo-deny` if needed. It also:
+`make setup` installs Rust `1.97.0` and `cargo-deny` if needed. It also:
 
 - checks `uv.lock`
 - syncs locked Python dependencies

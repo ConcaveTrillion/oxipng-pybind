@@ -1,3 +1,8 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # Dependency Health
 
 Automation and local commands check dependency health.

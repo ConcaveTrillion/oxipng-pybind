@@ -1,3 +1,8 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # oxipng-pybind Conventions
 
 These rules apply to source code, tests, docs, scripts, and workflows in this
