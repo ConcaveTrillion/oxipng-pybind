@@ -44,6 +44,7 @@ For attacker-controlled files or bytes, see
 This package can replace `pyoxipng` for most callers.
 
 Old `pyoxipng` names are compatibility paths. Some emit `DeprecationWarning`.
+
 [Migrate those names](docs/usage/pyoxipng-migration.md) to the stable API
 before a future release removes them.
 
