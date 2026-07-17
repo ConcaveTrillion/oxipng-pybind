@@ -1,11 +1,26 @@
+---
+kind: process
+status: active
+last_verified: 2026-07-17
+---
 # Documentation Map
 
 Use this map to find the right project doc.
+
+## Agent Index
+
+- **Kind:** process
+- **Status:** active
+- **Read when:** locating a project doc by topic — usage, architecture, process,
+  plans, issues, or API surface.
+- **Search terms:** documentation map, docs index, folder guide, where are the
+  docs.
 
 | Folder | Purpose | Use when |
 | --- | --- | --- |
 | `architecture/` | Durable reference for how the system works today. | You need current contracts or diagrams. |
 | `api-surface/` | Package-specific upstream API manifests. | You need tracked Rust `oxipng` API snapshots. |
+| `issues/` | Governed, evidence-bearing issue reports. | You file or look up a bug, regression, or investigation. |
 | `plans/` | Current project plans. | You need open work. |
 | `process/` | Workflow conventions and release process. | You need team workflow rules. |
 | `usage/` | Downstream reference. | You need to use or integrate the package. |
@@ -40,6 +55,10 @@ specs, and reports.
 - [Rust oxipng updates](process/upstream-bumps.md)
 - [Writing style](process/writing-style.md)
 - [Lint deviations](process/lint-deviations.md)
+
+## Issues
+
+- [Issue reports and template](issues/README.md)
 
 ## Project state
 
