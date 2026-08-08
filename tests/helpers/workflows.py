@@ -12,17 +12,17 @@ Workflow = dict[Any, Any]
 Step = dict[str, Any]
 
 REVIEWED_ACTION_REFS = {
-    "actions/checkout": "9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0",
-    "actions/setup-python": "ece7cb06caefa5fff74198d8649806c4678c61a1",
+    "actions/checkout": "3d3c42e5aac5ba805825da76410c181273ba90b1",
+    "actions/setup-python": "5fda3b95a4ea91299a34e894583c3862153e4b97",
     "actions/upload-artifact": "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
     "actions/download-artifact": "3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c",
-    "astral-sh/setup-uv": "11f9893b081a58869d3b5fccaea48c9e9e46f990",
-    "taiki-e/install-action": "43aecc8d72668fbcfe75c31400bc4f890f1c5853",
+    "astral-sh/setup-uv": "c771a70e6277c0a99b617c7a806ffedaca235ff9",
+    "taiki-e/install-action": "6c6fd71fe4fb72c3697d269963d0e15df8adedad",
     "peter-evans/create-pull-request": "5f6978faf089d4d20b00c7766989d076bb2fc7f1",
     "PyO3/maturin-action": "e83996d129638aa358a18fbd1dfb82f0b0fb5d3b",
-    "pypa/gh-action-pypi-publish": "cef221092ed1bacb1cc03d23a2d87d1d172e277b",
+    "pypa/gh-action-pypi-publish": "dc37677b2e1c63e2034f94d8a5b11f265b73ba33",
 }
-RUST_TOOLCHAIN_VERSION = "1.97.0"
+RUST_TOOLCHAIN_VERSION = "1.97.1"
 
 
 def load_workflow(relative: str) -> Workflow:

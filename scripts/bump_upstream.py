@@ -77,9 +77,7 @@ def latest_upstream_version() -> str:
     IPs. Local runs without a token still work unauthenticated.
     """
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
-    request = urllib.request.Request(  # noqa: S310
-        LATEST_RELEASE_URL, headers=_github_request_headers(token)
-    )
+    request = urllib.request.Request(LATEST_RELEASE_URL, headers=_github_request_headers(token))
     with urllib.request.urlopen(request, timeout=30) as response:  # noqa: S310
         raw_payload = json.loads(response.read().decode("utf-8"))
     if not isinstance(raw_payload, dict):

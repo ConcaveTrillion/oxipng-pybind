@@ -18,7 +18,7 @@ dependencies retain their upstream licenses and notices.
 - License: MIT OR Apache-2.0
 
 - Project: [bytemuck](https://github.com/Lokathor/bytemuck)
-- Version: 1.25.1
+- Version: 1.25.2
 - License: Zlib OR Apache-2.0 OR MIT
 
 - Project: [cfg-if](https://github.com/rust-lang/cfg-if)
@@ -42,7 +42,7 @@ dependencies retain their upstream licenses and notices.
 - License: MIT OR Apache-2.0
 
 - Project: [either](https://github.com/rayon-rs/either)
-- Version: 1.16.0
+- Version: 1.17.0
 - License: MIT OR Apache-2.0
 
 - Project: [equivalent](https://github.com/indexmap-rs/equivalent)
@@ -66,7 +66,7 @@ dependencies retain their upstream licenses and notices.
 - License: Apache-2.0 OR MIT
 
 - Project: [libc](https://github.com/rust-lang/libc)
-- Version: 0.2.186
+- Version: 0.2.189
 - License: MIT OR Apache-2.0
 
 - Project: [libdeflate-sys](https://github.com/libdeflater/libdeflater)
@@ -90,31 +90,31 @@ dependencies retain their upstream licenses and notices.
 - License: MIT
 
 - Project: [portable-atomic](https://github.com/taiki-e/portable-atomic)
-- Version: 1.13.1
+- Version: 1.14.0
 - License: Apache-2.0 OR MIT
 
 - Project: [proc-macro2](https://github.com/dtolnay/proc-macro2)
-- Version: 1.0.106
+- Version: 1.0.107
 - License: MIT OR Apache-2.0
 
 - Project: [pyo3](https://github.com/pyo3/pyo3)
-- Version: 0.29.0
+- Version: 0.29.2
 - License: MIT OR Apache-2.0
 
 - Project: [pyo3-ffi](https://github.com/pyo3/pyo3)
-- Version: 0.29.0
+- Version: 0.29.2
 - License: MIT OR Apache-2.0
 
 - Project: [pyo3-macros](https://github.com/pyo3/pyo3)
-- Version: 0.29.0
+- Version: 0.29.2
 - License: MIT OR Apache-2.0
 
 - Project: [pyo3-macros-backend](https://github.com/pyo3/pyo3)
-- Version: 0.29.0
+- Version: 0.29.2
 - License: MIT OR Apache-2.0
 
 - Project: [quote](https://github.com/dtolnay/quote)
-- Version: 1.0.46
+- Version: 1.0.47
 - License: MIT OR Apache-2.0
 
 - Project: [radium](https://github.com/bitvecto-rs/radium)

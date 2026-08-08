@@ -7,8 +7,8 @@ last_verified: 2026-07-17
 
 This file records intentional lint and type-check deviations.
 
-Prefer fixing the underlying issue before adding an entry here. When an
-exception is needed, document the rule, location, and reason.
+Fix the underlying issue before adding an entry here. When an exception is
+needed, document its rule, location, and reason.
 
 ## Ruff Global Ignores
 
@@ -30,8 +30,8 @@ exception is needed, document the rule, location, and reason.
 ## Docstring Policy
 
 Production Python and automation scripts are docstring-first. Public modules,
-packages, classes, functions, and methods need docstrings unless this file lists
-a narrower exception.
+packages, classes, functions, and methods need docstrings unless this file
+lists a narrower exception.
 
 Docstrings must be concise, specific, and concrete. Prefer one sentence. Name
 the contract or side effect. Avoid filler such as "This function", "Responsible
@@ -50,6 +50,7 @@ docstrings only when they clarify shared behavior.
 | `PLC0415` | `scripts/smoke_wheel.py` | Pillow is imported only for 3.11+ smoke lanes so 3.10 wheel smoke can run with stdlib PNG checks. |
 | `PLC0415` | `tests/conftest.py` | Pillow is optional in the Python 3.10 API matrix; fixtures fall back to stdlib PNG generation. |
 | `PLR0913` | public API wrappers in `oxipng/__init__.py` | The wrapper keeps the upstream option surface as keyword parameters for pyoxipng compatibility. |
+| `PLR0913`, `PLR0917` | `tests/helpers/artifacts.py` | The test factory mirrors the six fields returned by GitHub workflow runs. |
 | `PLR0912` | `tests/test_real_pngs.py` | The fixture keeps each Pillow PNG mode explicit so real PNG coverage remains easy to audit. |
 | `S310` | reviewed URL calls in `scripts/bump_upstream.py` and `scripts/validate_release_tag.py` | Release automation uses validated HTTPS URLs with explicit timeouts. |
 | `S603` | reviewed `subprocess.run` calls in `scripts/*.py` | Automation passes argument lists directly and does not use `shell=True`. |
@@ -59,8 +60,8 @@ docstrings only when they clarify shared behavior.
 ## Pylint and Astroid Workarounds
 
 This project uses Ruff and basedpyright, not Pylint. Some consumers still run
-Pylint over code that imports `oxipng`. Pylint 4.0.5 uses Astroid 4.0.4, which
-can recurse while transforming this facade's runtime Python shapes.
+Pylint over code that imports `oxipng`. Pylint 4.0.5 uses Astroid 4.0.4.
+Astroid can recurse while transforming this facade's runtime Python shapes.
 
 Keep the current package-side workarounds until a supported Pylint release can
 analyze a broad consumer import without Astroid recursion warnings.
@@ -85,13 +86,14 @@ assignment once Pylint can analyze them safely.
   instead.
 
 When Pylint allows a fixed Astroid version, test the cleanup with a temporary
-consumer that imports and calls `analyze`, `optimize`, `optimize_from_memory`,
-`ColorType`, `Deflaters`, `FilterStrategy.predefined`, and `StripChunks`. If
-plain `python -m pylint --exit-zero consumer.py` emits no `Astroid was unable
-to transform` warnings, Pylint can analyze the facade safely. At that point,
-consider returning aliases and callable enum methods to normal enum bodies,
-restoring inline runtime signatures only if needed, and removing the related
-inline suppressions.
+consumer. Have it import and call `analyze`, `optimize`,
+`optimize_from_memory`, `ColorType`, `Deflaters`,
+`FilterStrategy.predefined`, and `StripChunks`. If plain
+`python -m pylint --exit-zero consumer.py` emits no `Astroid was unable to
+transform` warnings, Pylint can analyze the facade safely. Then consider
+returning aliases and callable enum methods to normal enum bodies. Also
+consider restoring inline runtime signatures only if needed and removing the
+related inline suppressions.
 
 ## Basedpyright Suppressions
 
@@ -131,7 +133,7 @@ No RustSec advisories are ignored. `deny.toml` keeps
 
 ### Path Exclusions
 
-`.markdownlint-cli2.jsonc` globs skip files that are tool-generated or copied
+`.markdownlint-cli2.jsonc` globs skip tool-generated files and copied
 templates, not repo-authored prose.
 
 | Path | Justification |

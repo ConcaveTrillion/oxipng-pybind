@@ -36,7 +36,7 @@ def touch_wheel(directory: Path, **kwargs: str) -> Path:
     return wheel
 
 
-def workflow_run(  # noqa: PLR0913 - Factory mirrors GitHub workflow run fields.
+def workflow_run(  # noqa: PLR0913, PLR0917 - Mirrors GitHub workflow run fields.
     name: str = "ci",
     head_sha: str = "abc",
     status: str = "completed",

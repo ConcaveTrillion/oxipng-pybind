@@ -18,7 +18,7 @@ Run the audit gate before dependency work:
 make dependency-audit
 ```
 
-Run a full refresh before dependency update work:
+Run a full refresh before updating dependencies:
 
 ```bash
 make dependency-refresh-check
@@ -33,8 +33,8 @@ make third-party-notices-check
 For CVE (Common Vulnerabilities and Exposures) updates, prefer the smallest
 lockfile change that clears the advisory.
 
-If the vulnerable dependency is transitive, update the direct parent dependency
-first.
+If the vulnerable dependency is transitive, update its direct parent
+dependency first.
 
 If no fixed version exists, document these items in the PR body:
 
@@ -43,33 +43,34 @@ If no fixed version exists, document these items in the PR body:
 - project exploitability
 - temporary mitigation
 
-Do not ignore advisories in `deny.toml` without a dated comment and an issue.
+Do not ignore advisories in `deny.toml` without both a dated comment and an
+issue.
 
 ## Dependency Overrides
 
 `[tool.uv] override-dependencies` in `pyproject.toml` forces a transitive
 dependency to a version its parent does not request.
 
-Each override needs a comment naming the advisory or reason it exists.
+Each override needs a comment that names its advisory or reason.
 
 Re-audit every override after each dependency upgrade.
 
-An override can outlive its reason. Its parent may ship a fix, or the forced
-version may drift far enough to break the parent. For each override, confirm
-three things:
+An override can outlive its reason. Its parent may ship a fix. The forced
+version may also drift far enough to break the parent.
+
+For each override, confirm three things:
 
 - the advisory or reason still applies
 - the parent still works with the forced version
 - the floor still clears the advisory
 
 `make override-audit` automates the first check. It re-resolves the project
-without its overrides in an isolated virtual project. It then fails if any
-override's floor is already met by the natural resolution, which means the
-override is removable.
+without overrides in an isolated virtual project. It fails when the natural
+resolution already meets an override's floor. That override is removable.
 
-The weekly refresh runs `make override-audit` as a dedicated step, so a
-parent that ships a fix surfaces the override for removal. It stays out of
-`make ci` to avoid blocking unrelated pull requests.
+The weekly refresh runs `make override-audit` as a separate step. When a
+parent ships a fix, this surfaces the override for removal. The check stays out
+of `make ci` to avoid blocking unrelated pull requests.
 
 Remove the override once the parent requests a safe version on its own.
 
@@ -80,42 +81,46 @@ Current overrides:
   `click` is a dev-only transitive dependency. Commit-msg linting runs in
   pre-commit's own environment, so the override only affects the audited
   lockfile. Remove it if `gitlint` ships a release that drops the pin.
+- `sh>=2.2.4`: `gitlint-core[trusted-deps]` pins the vulnerable `sh==1.14.3`
+  (PYSEC-2026-3540 and GHSA-q38v-wp89-2w55, incomplete privilege drop). `sh`
+  is a dev-only transitive dependency. Remove the override if `gitlint` ships
+  a release that drops the pin.
 
 ## Scheduled Refresh
 
-`.github/workflows/dependency-health.yml` runs weekly and on demand. It owns
-scheduled dependency refreshes.
+`.github/workflows/dependency-health.yml` owns scheduled dependency refreshes.
+It runs weekly and on demand.
 
-The prepare job has read-only repository permissions. It refreshes `uv.lock` and
+The prepare job has read-only repository permissions. It refreshes `uv.lock`,
 `Cargo.lock`, pre-commit hook revisions, reviewed GitHub Action pins, and
 third-party notices. It then applies lint fixes, runs dependency audits, and
 runs full CI.
 
-The "Run CI" step records its result as the `ci-passed` job output. It does not
-abort the job on failure.
+The "Run CI" step records its result as the `ci-passed` job output. A failure
+does not abort the job.
 
-This matters because a GitHub Action pin bump produces an unreviewed SHA, and
-the reviewed-action-ref security gate rejects that SHA by design, so `make ci`
-fails. The prepare job continues anyway. It detects changes regardless of the
-CI outcome and lets the publish job open a PR for human review.
+A GitHub Action pin bump produces an unreviewed SHA. The reviewed-action-ref
+security gate rejects that SHA by design, so `make ci` fails. The prepare job
+still continues. It detects changes regardless of the CI outcome and lets the
+publish job open a PR for human review.
 
 A separate write-scoped publish job opens or updates a dependency refresh PR
 only when the prepare job changed files. It labels the PR `ci-passed` when
-local CI was green and `ci-failed` when it was red. It also threads the
-`ci-passed` value into the PR body.
+local CI was green and `ci-failed` when it was red. It also adds the
+`ci-passed` value to the PR body.
 
 A `ci-failed` PR opens as a normal PR awaiting human review. It never
 auto-merges. Review the new pins or other changes before merge.
 
-The prepare job runs `scripts/classify_dependency_refresh.py --base-ref origin/main`
-after it detects changed files. The publish job adds the classifier label and
-reason to the PR.
+After detecting changed files, the prepare job runs
+`scripts/classify_dependency_refresh.py --base-ref origin/main`. The publish
+job adds the classifier label and reason to the PR.
 
-The publish job commits only the changed files from the prepare job. This keeps
+The publish job commits only the prepare job's changed files. This keeps
 lockfiles, `.pre-commit-config.yaml`, workflow action pins, generated notices,
 and lint fixes in one PR.
 
-Merge behavior differs by classification:
+Merge behavior depends on classification:
 
 - `no-release-needed` PRs with a green prepare-job CI (`ci-passed`) may
   auto-merge after required checks pass.
@@ -124,10 +129,10 @@ Merge behavior differs by classification:
 - Any `ci-failed` PR also stays open for human review and never auto-merges,
   regardless of release classification.
 
-Branch protection remains the merge gate, so failed checks leave the PR open
-for manual repair.
+Branch protection remains the merge gate. Failed checks leave the PR open for
+manual repair.
 
-Use the required settings and token from
+Find the required settings and token in
 [GitHub Settings](github-settings.md).
 
 Dependency refresh PRs use rebase auto-merge.
@@ -141,9 +146,9 @@ selector from the latest stable Rust release tag.
 
 ## Local Action Pin Sign-Off
 
-The scheduled refresh PR fails on purpose when a pin bump introduces an
+The scheduled refresh PR fails by design when a pin bump introduces an
 unreviewed SHA. CI bumps the workflow YAML but not the reviewed allowlist in
-`tests/helpers/workflows.py`. That mismatch makes the security gate reject the
+`tests/helpers/workflows.py`. The mismatch makes the security gate reject the
 change.
 
 Turning that PR green is the human sign-off.
@@ -154,7 +159,7 @@ Do it locally:
 make refresh-actions
 ```
 
-This bumps the workflow pins. It syncs `REVIEWED_ACTION_REFS`,
+This command bumps the workflow pins. It syncs `REVIEWED_ACTION_REFS`,
 `RUST_TOOLCHAIN_VERSION`, and the `Makefile` `RUST_VERSION` bootstrap pin to
 match. It also prints a review report with each action's repository and
 changelog link.
@@ -170,13 +175,14 @@ To carry the sign-off onto the open refresh PR:
 make accept-refresh-pr
 ```
 
-This rebases `automation/dependency-refresh` on `main`, syncs the allowlist,
-runs full CI, pushes the fix, and prints the `gh pr merge` command. It stops
-before merging. Run the printed command yourself after checks pass.
+This command rebases `automation/dependency-refresh` on `main` and syncs the
+allowlist. It runs full CI, pushes the fix, and prints the `gh pr merge`
+command. It stops before merging. Run the printed command yourself after
+checks pass.
 
 ## Release Classification
 
-Dependency refresh PRs are classified before publication.
+The project classifies dependency refresh PRs before publication.
 
 `no-release-needed` means only tooling or non-runtime dependency state changed.
 
