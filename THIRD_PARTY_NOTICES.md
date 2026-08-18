@@ -90,7 +90,7 @@ dependencies retain their upstream licenses and notices.
 - License: MIT
 
 - Project: [portable-atomic](https://github.com/taiki-e/portable-atomic)
-- Version: 1.14.0
+- Version: 1.15.0
 - License: Apache-2.0 OR MIT
 
 - Project: [proc-macro2](https://github.com/dtolnay/proc-macro2)
