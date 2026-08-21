@@ -9,10 +9,6 @@ dependencies retain their upstream licenses and notices.
 
 ## Runtime Rust Dependencies
 
-- Project: [bitvec](https://github.com/bitvecto-rs/bitvec)
-- Version: 1.1.1
-- License: MIT
-
 - Project: [bumpalo](https://github.com/fitzgen/bumpalo)
 - Version: 3.20.3
 - License: MIT OR Apache-2.0
@@ -42,16 +38,12 @@ dependencies retain their upstream licenses and notices.
 - License: MIT OR Apache-2.0
 
 - Project: [either](https://github.com/rayon-rs/either)
-- Version: 1.17.0
+- Version: 1.18.0
 - License: MIT OR Apache-2.0
 
 - Project: [equivalent](https://github.com/indexmap-rs/equivalent)
 - Version: 1.0.2
 - License: Apache-2.0 OR MIT
-
-- Project: [funty](https://github.com/myrrlyn/funty)
-- Version: 2.0.0
-- License: MIT
 
 - Project: [hashbrown](https://github.com/rust-lang/hashbrown)
 - Version: 0.17.1
@@ -86,11 +78,11 @@ dependencies retain their upstream licenses and notices.
 - License: MIT OR Apache-2.0
 
 - Project: [oxipng](https://github.com/oxipng/oxipng)
-- Version: 10.1.1
+- Version: 10.2.0
 - License: MIT
 
 - Project: [portable-atomic](https://github.com/taiki-e/portable-atomic)
-- Version: 1.14.0
+- Version: 1.15.0
 - License: Apache-2.0 OR MIT
 
 - Project: [proc-macro2](https://github.com/dtolnay/proc-macro2)
@@ -117,10 +109,6 @@ dependencies retain their upstream licenses and notices.
 - Version: 1.0.47
 - License: MIT OR Apache-2.0
 
-- Project: [radium](https://github.com/bitvecto-rs/radium)
-- Version: 0.7.0
-- License: MIT
-
 - Project: [rayon](https://github.com/rayon-rs/rayon)
 - Version: 1.12.0
 - License: MIT OR Apache-2.0
@@ -145,17 +133,9 @@ dependencies retain their upstream licenses and notices.
 - Version: 2.0.119
 - License: MIT OR Apache-2.0
 
-- Project: [tap](https://github.com/myrrlyn/tap)
-- Version: 1.0.1
-- License: MIT
-
 - Project: [unicode-ident](https://github.com/dtolnay/unicode-ident)
 - Version: 1.0.24
 - License: (MIT OR Apache-2.0) AND Unicode-3.0
-
-- Project: [wyz](https://github.com/myrrlyn/wyz)
-- Version: 0.5.1
-- License: MIT
 
 - Project: [zopfli](https://github.com/zopfli-rs/zopfli)
 - Version: 0.8.3

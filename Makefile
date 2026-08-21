@@ -2,7 +2,7 @@ export PATH := $(HOME)/.cargo/bin:$(PATH)
 
 AI ?=
 LOG := .ci-ai.log
-RUST_VERSION := 1.97.1
+RUST_VERSION := 1.98.0
 CARGO_DENY_VERSION := 0.19.7
 REFRESH_BRANCH := automation/dependency-refresh
 
@@ -20,7 +20,8 @@ else
 .PHONY: help bootstrap-rust setup setup-env setup-hooks develop test test-rust test-py coverage lint lint-fix py-lint py-lint-fix \
 	rust-lint rust-lint-fix md-lint md-lint-fix format format-check typecheck \
 	rust-deny py-audit-lock override-audit dependency-audit dependency-refresh-check refresh-actions accept-refresh-pr pre-commit-check \
-	third-party-notices third-party-notices-check build wheel clean clean-cache reset remove-venv upgrade-deps api-matrix ci
+	third-party-notices third-party-notices-check build release-artifacts wheel sdist verify-release-artifacts \
+	clean clean-cache reset remove-venv upgrade-deps api-matrix ci
 
 help: ## Show this help message
 	@echo "Available commands:"
@@ -157,10 +158,24 @@ accept-refresh-pr: ## Rebase the dependency-refresh PR on main, sync pins, run C
 pre-commit-check: ## Run all pre-commit hooks
 	uv run --group dev pre-commit run --all-files
 
-build: wheel ## Build release artifacts
+build: release-artifacts ## Build and verify release artifacts
+
+release-artifacts: ## Build and verify a clean local wheel and source distribution
+	rm -f dist/*.whl dist/*.tar.gz
+	@$(MAKE) --no-print-directory wheel
+	@$(MAKE) --no-print-directory sdist
+	@$(MAKE) --no-print-directory verify-release-artifacts
 
 wheel: ## Build optimized Python wheel
-	uv run --group dev maturin build --release --locked
+	mkdir -p dist
+	uv run --locked --group dev maturin build --release --locked --out dist
+
+sdist: ## Build Python source distribution
+	mkdir -p dist
+	uv run --locked --group dev maturin sdist --out dist
+
+verify-release-artifacts: ## Verify local wheel and source distribution contents
+	uv run --locked --group dev python scripts/verify_release_artifacts.py dist/*.whl dist/*.tar.gz
 
 clean: ## Remove generated files and build artifacts
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true

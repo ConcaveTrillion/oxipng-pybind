@@ -1,7 +1,7 @@
 ---
 kind: process
 status: active
-last_verified: 2026-07-17
+last_verified: 2026-08-21
 ---
 # Upstream Bumps
 
@@ -84,6 +84,16 @@ For upstream releases, run the default bump:
 ```bash
 uv run --group dev python scripts/bump_upstream.py
 ```
+
+To pin a reviewed upstream release instead of reading the latest GitHub
+release, pass its exact version:
+
+```bash
+uv run --group dev python scripts/bump_upstream.py --version 10.2.0
+```
+
+`--version` and `--wrapper-post` are mutually exclusive. Argument validation
+finishes before either command edits release files.
 
 The script checks crates.io for the target `oxipng` crate before editing
 files.

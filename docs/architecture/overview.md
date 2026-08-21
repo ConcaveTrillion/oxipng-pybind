@@ -1,7 +1,7 @@
 ---
 kind: architecture
 status: built
-last_verified: 2026-07-17
+last_verified: 2026-08-21
 ---
 # Architecture Overview
 
@@ -102,8 +102,24 @@ The wrapper keeps caller mistakes separate from image failures.
 Release builds use separate `abi3-py310` and `abi3-py311` PyO3 lanes. Each
 wheel supports its ABI3 Python floor and newer versions on one platform.
 
+Maturin packages two top-level modules. The handwritten `oxipng` package owns
+the public facade, compatibility layer, stub, and typing marker. The generated
+`_oxipng` package owns the compiled extension and its import shim.
+
+`pyproject.toml` declares `module-name = "_oxipng"` and
+`python-packages = ["oxipng"]`. The source tree must not contain a generated
+`_oxipng/` directory. If it does, Maturin treats that directory as user-owned
+and may omit its generated import shim.
+
 See [Release Artifacts](../process/release-artifacts.md) for wheel targets,
 checks, and publishing rules.
+
+## Evidence
+
+- Code: `pyproject.toml`, `src/lib.rs`, and `oxipng/__init__.py`
+- Tests: `tests/test_release_artifacts.py` and `tests/test_packaging_metadata.py`
+- Artifacts: wheel and source distribution produced by `make release-artifacts`
+- Verified: 2026-08-21 with `make release-artifacts AI=1` and `make ci AI=1`
 
 ## Rust oxipng Surface
 

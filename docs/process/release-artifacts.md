@@ -1,7 +1,7 @@
 ---
 kind: process
 status: active
-last_verified: 2026-07-17
+last_verified: 2026-08-21
 ---
 # Release Artifacts
 
@@ -10,6 +10,19 @@ workflow also publishes one source distribution (sdist) for users who build
 from source or use an unsupported platform.
 
 Source builds need Rust and a compatible build environment.
+
+Build and verify the local release set with:
+
+```bash
+make release-artifacts AI=1
+```
+
+This target uses uv to build a clean wheel and source distribution in `dist/`.
+It then runs `scripts/verify_release_artifacts.py` against both files. The
+`make build` and `make ci` targets include the same verification.
+
+Use `make wheel`, `make sdist`, or `make verify-release-artifacts` only when
+working on one stage of the local artifact pipeline.
 
 [`.github/workflows/wheels.yml`](../../.github/workflows/wheels.yml) is the
 only workflow that publishes artifacts. It runs for:

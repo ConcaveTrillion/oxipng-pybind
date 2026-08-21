@@ -91,3 +91,7 @@ For return values and examples, see
 The machine-readable Rust surface record is
 [oxipng-10.1.1.toml](../api-surface/oxipng-10.1.1.toml).
 It records mapped upstream items and intentional gaps for `oxipng` 10.1.1.
+
+### oxipng 10.2.0
+
+- `PngError::ChunkPreventsChanges`

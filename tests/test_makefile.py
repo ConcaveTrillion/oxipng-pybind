@@ -90,6 +90,26 @@ def test_wheel_build_uses_locked_cargo_dependencies() -> None:
     assert "maturin build --release --locked" in makefile
 
 
+def test_release_artifact_targets_use_uv_and_verify_both_formats() -> None:
+    """Local release builds use uv and verify the wheel and sdist."""
+    makefile = Path("Makefile").read_text(encoding="utf-8")
+
+    assert "build: release-artifacts" in makefile
+    assert "sdist: ## Build Python source distribution" in makefile
+    release_body = _target_body(makefile, "release-artifacts")
+    wheel_body = _target_body(makefile, "wheel")
+    sdist_body = _target_body(makefile, "sdist")
+    verify_body = _target_body(makefile, "verify-release-artifacts")
+
+    assert "$(MAKE) --no-print-directory wheel" in release_body
+    assert "$(MAKE) --no-print-directory sdist" in release_body
+    assert "$(MAKE) --no-print-directory verify-release-artifacts" in release_body
+    assert "uv run --locked --group dev maturin build" in wheel_body
+    assert "uv run --locked --group dev maturin sdist" in sdist_body
+    assert "uv run --locked --group dev python scripts/verify_release_artifacts.py" in verify_body
+    assert " pip " not in release_body + wheel_body + sdist_body + verify_body
+
+
 def test_refresh_actions_target_syncs_reviewed_allowlist() -> None:
     """`make refresh-actions` bumps pins and syncs the reviewed allowlist locally."""
     makefile = Path("Makefile").read_text(encoding="utf-8")

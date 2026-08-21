@@ -79,3 +79,7 @@ The machine-readable Rust surface record is
 [oxipng-10.1.1.toml](../api-surface/oxipng-10.1.1.toml).
 
 This document has no generated Rust surface additions for 10.1.1.
+
+### oxipng 10.2.0
+
+- `PngError::ChunkPreventsChanges`

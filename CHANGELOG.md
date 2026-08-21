@@ -7,6 +7,18 @@ last_verified: 2026-08-08
 
 ## Release Notes
 
+## 10.2.0 - Upstream and dependency refresh
+
+- The binding now uses upstream `oxipng` 10.2.0, up from 10.1.1. The new
+  `PngError::ChunkPreventsChanges` variant still maps to the flat Python
+  `PngError`, so the public binding surface did not change.
+- Rust runtime and Python development dependencies were refreshed. Upstream
+  10.2.0 removed `bitvec`, `funty`, `radium`, `tap`, and `wyz` from the runtime
+  dependency set.
+- The Rust toolchain now uses 1.98.0, up from 1.97.1. Ruff now uses 0.16.4,
+  up from 0.16.2. Reviewed new `setup-uv` v10.0.1 and `install-action` v2.86.4
+  pins.
+
 ## 10.1.1.post4 - Refresh runtime dependencies and release tooling
 
 - Updated PyO3 from 0.29.0 to 0.29.2. Refreshed bundled runtime Rust crates.

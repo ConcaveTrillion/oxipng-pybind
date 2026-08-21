@@ -357,6 +357,19 @@ def test_main_wrapper_post_mode_updates_wrapper_version(
     assert capsys.readouterr().out == "updated oxipng-pybind wrapper version to 10.1.1.post1\n"
 
 
+def test_main_rejects_wrapper_post_with_explicit_upstream_version(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(
+        bump_upstream,
+        "bump_wrapper_post_release",
+        lambda: pytest.fail("conflicting options must fail before changing files"),
+    )
+
+    with pytest.raises(SystemExit, match="2"):
+        bump_upstream.main(["--wrapper-post", "--version", "10.2.0"])
+
+
 def test_main_upstream_mode_reports_current_pin(
     monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
@@ -373,6 +386,34 @@ def test_main_upstream_mode_reports_current_pin(
 
     assert outputs == [("target-version", "10.1.1")]
     assert capsys.readouterr().out == "oxipng-pybind already pins oxipng 10.1.1\n"
+
+
+def test_main_upstream_mode_uses_explicit_version_without_latest_lookup(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    outputs: list[tuple[str, str]] = []
+    bump_calls: list[str] = []
+
+    def unexpected_latest_lookup() -> str:
+        pytest.fail("explicit version must not query the latest release")
+
+    monkeypatch.setattr(bump_upstream, "latest_upstream_version", unexpected_latest_lookup)
+    monkeypatch.setattr(bump_upstream, "crates_io_version_available", lambda version: True)
+
+    def record_bump(version: str) -> bool:
+        bump_calls.append(version)
+        return True
+
+    monkeypatch.setattr(bump_upstream, "bump_upstream_files", record_bump)
+    monkeypatch.setattr(
+        bump_upstream, "emit_github_output", lambda name, value: outputs.append((name, value))
+    )
+
+    assert bump_upstream.main(["--version", "10.2.0"]) == 0
+
+    assert bump_calls == ["10.2.0"]
+    assert outputs == [("target-version", "10.2.0")]
+    assert capsys.readouterr().out == "updated oxipng-pybind to oxipng 10.2.0\n"
 
 
 def test_main_upstream_mode_exits_cleanly_when_crate_is_not_indexed(
@@ -424,6 +465,41 @@ def test_append_upstream_release_note_adds_to_release_notes_section(tmp_path: Pa
     assert (
         "## Release Notes\n\n## 10.2.0 - Bump Version\n\n- Rebuilt `oxipng-pybind` to track upstream `oxipng` 10.2.0."
         in text
+    )
+
+
+def test_append_upstream_release_note_preserves_single_blank_line_between_releases(
+    tmp_path: Path,
+) -> None:
+    changelog = tmp_path / "CHANGELOG.md"
+    changelog.write_text(
+        """# Changelog
+
+## Release Notes
+
+## 10.1.1 - Existing release
+
+- Existing release note.
+""",
+        encoding="utf-8",
+    )
+
+    bump_upstream.append_upstream_release_note("10.2.0", root=tmp_path)
+
+    assert (
+        changelog.read_text(encoding="utf-8")
+        == """# Changelog
+
+## Release Notes
+
+## 10.2.0 - Bump Version
+
+- Rebuilt `oxipng-pybind` to track upstream `oxipng` 10.2.0.
+
+## 10.1.1 - Existing release
+
+- Existing release note.
+"""
     )
 
 

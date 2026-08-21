@@ -188,7 +188,7 @@ def append_upstream_release_note(version: str, *, root: Path = ROOT) -> None:
         return
 
     if marker in text:
-        text = text.replace(marker, marker + entry + "\n", 1)
+        text = text.replace(marker, marker + entry, 1)
     else:
         text = text.rstrip() + "\n\n" + marker + entry + "\n"
     changelog.write_text(text, encoding="utf-8")
@@ -342,10 +342,16 @@ def upsert_surface_issue(version: str, report_path: Path) -> None:
 def main(argv: Sequence[str] | None = None) -> int:
     """Run upstream or wrapper-only version bumps."""
     parser = ArgumentParser(description=__doc__)
-    parser.add_argument(
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument(
         "--wrapper-post",
         action="store_true",
         help="bump only the Python package to the next .postN release",
+    )
+    mode.add_argument(
+        "--version",
+        type=normalize_version,
+        help="bump to this exact upstream version instead of querying the latest release",
     )
     args = parser.parse_args(argv)
 
@@ -355,7 +361,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"updated oxipng-pybind wrapper version to {version}")
         return 0
 
-    version = latest_upstream_version()
+    version = args.version or latest_upstream_version()
     emit_github_output("target-version", version)
     if not crates_io_version_available(version):
         emit_github_output("upstream-crate-available", "false")

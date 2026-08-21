@@ -1,13 +1,13 @@
 ---
 kind: process
 status: active
-last_verified: 2026-07-17
+last_verified: 2026-08-21
 ---
 # Unfinished Work
 
 This file tracks active work that is not covered by durable process docs.
 
-Last checked: 2026-07-17.
+Last checked: 2026-08-21.
 
 ## What's Already Working
 
@@ -37,7 +37,8 @@ See the durable process docs for implementation details:
 
 ### Confirm upstream bumps create release tags automatically
 
-Upstream `oxipng` is still at `10.1.1`, which matches this repo.
+The 10.2.0 upstream and dependency refresh is complete locally. Confirm the
+hosted release automation after the commit reaches `main` on GitHub.
 
 When upstream publishes a newer release on GitHub and crates.io, run the
 hosted upstream bump workflow. Then confirm each of these steps:

@@ -49,7 +49,7 @@ specs, and reports.
 - [API compatibility](architecture/api-compatibility.md)
 - [Options surface](architecture/options-surface.md)
 - [Test architecture](architecture/test-architecture.md)
-- [Upstream API surface scan](api-surface/oxipng-10.1.1.toml)
+- [Upstream API surface scan](api-surface/oxipng-10.2.0.toml)
 
 ## Process
 
