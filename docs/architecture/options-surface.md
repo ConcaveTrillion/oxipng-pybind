@@ -1,12 +1,12 @@
 ---
 kind: architecture
 status: built
-last_verified: 2026-07-17
+last_verified: 2026-08-28
 ---
 # Options Surface
 
 Most Python keyword options map to Rust
-[`oxipng::Options`](https://docs.rs/oxipng/10.1.1/oxipng/struct.Options.html).
+[`oxipng::Options`](https://docs.rs/oxipng/10.2.0/oxipng/struct.Options.html).
 
 Two options have no Rust equivalent: `backup` and `preserve_attrs` are
 Python-only file options.

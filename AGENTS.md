@@ -1,7 +1,7 @@
 ---
 kind: process
 status: active
-last_verified: 2026-07-15
+last_verified: 2026-08-28
 ---
 # oxipng-pybind — Agent Guidance
 
@@ -105,11 +105,11 @@ conversation instructions can override them.
 
 <!-- workspace-process:end -->
 
-<!-- >>> repo-setup:repo-facts sha256:26c94fabc2129cfab0d35e700ab83a0fc4e605ae4f957a482b175f083a3621ac -->
+<!-- >>> repo-setup:repo-facts sha256:059fe094ef15e66d32cef3377ca165cbb50e386267ec7f40359e02105243ab86 -->
 ## Repository Facts
 
 Stack: Rust + Python. PyO3 0.29 and maturin expose the upstream `oxipng` crate
-(pinned `=10.1.1`) to Python as a native extension.
+(pinned `=10.2.0`) to Python as a native extension.
 
 - Rust crate `_oxipng` lives in `src/lib.rs` — `crate-type = ["cdylib",
   "rlib"]`, built with the `pyo3/extension-module` feature.

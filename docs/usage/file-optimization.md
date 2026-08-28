@@ -1,3 +1,8 @@
+---
+kind: usage
+status: active
+last_verified: 2026-08-28
+---
 # Optimize PNG files
 
 Use [`optimize`](../../oxipng/__init__.pyi#L204) when the PNG is on disk.
@@ -43,7 +48,7 @@ Its `original_size` and `optimized_size` values are byte counts.
 `level` must be an integer from `0` through `6`.
 
 Most optimization options map to Rust
-[`oxipng::Options`](https://docs.rs/oxipng/10.1.1/oxipng/struct.Options.html).
+[`oxipng::Options`](https://docs.rs/oxipng/10.2.0/oxipng/struct.Options.html).
 See [Options Surface](../architecture/options-surface.md) for the Python names
 and value types.
 

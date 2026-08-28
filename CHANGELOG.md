@@ -1,11 +1,23 @@
 ---
 kind: reference
 status: active
-last_verified: 2026-08-08
+last_verified: 2026-08-28
 ---
 # Changelog
 
 ## Release Notes
+
+## 10.2.0.post1 - Refresh runtime dependencies and release tooling
+
+- Updated `crc32fast` from 1.5.0 to 1.5.1, `libdeflate-sys` and `libdeflater`
+  from 1.25.2 to 1.26.0, and `log` from 0.4.33 to 0.4.34.
+- Refreshed Python development dependencies, including Maturin 1.15.0. Kept
+  the `click` and `sh` security overrides because `gitlint-core` still needs
+  them.
+- Reviewed and pinned `taiki-e/install-action` v2.86.7 for CI and dependency
+  automation.
+- The public API and optimization behavior did not change. The package still
+  wraps upstream `oxipng` 10.2.0.
 
 ## 10.2.0 - Upstream and dependency refresh
 

@@ -17,7 +17,7 @@ REVIEWED_ACTION_REFS = {
     "actions/upload-artifact": "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
     "actions/download-artifact": "3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c",
     "astral-sh/setup-uv": "20cfd1bf945f4377ade1205e4dbc17946fc9a30d",
-    "taiki-e/install-action": "a2a5f6e99e1a31540baa0468acfa302cff0f359f",
+    "taiki-e/install-action": "b6ff580856c41316412a0b9b60540fbc6f8c82cc",
     "peter-evans/create-pull-request": "5f6978faf089d4d20b00c7766989d076bb2fc7f1",
     "PyO3/maturin-action": "e83996d129638aa358a18fbd1dfb82f0b0fb5d3b",
     "pypa/gh-action-pypi-publish": "dc37677b2e1c63e2034f94d8a5b11f265b73ba33",

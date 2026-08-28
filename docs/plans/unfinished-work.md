@@ -1,13 +1,13 @@
 ---
 kind: process
 status: active
-last_verified: 2026-08-21
+last_verified: 2026-08-28
 ---
 # Unfinished Work
 
 This file tracks active work that is not covered by durable process docs.
 
-Last checked: 2026-08-21.
+Last checked: 2026-08-28.
 
 ## What's Already Working
 
@@ -23,8 +23,8 @@ Repository release automation is implemented.
 - `RELEASE_TAG_TOKEN`, `UPSTREAM_BUMP_TOKEN`, and `DEPENDENCY_REFRESH_TOKEN`
   exist as repository secrets.
 - TestPyPI publishing passed through `.github/workflows/wheels.yml`.
-- PyPI hosts the `oxipng-pybind` project, currently at `10.1.1.post3`.
-  Earlier releases were `10.1.1`, `.post1`, and `.post2`.
+- PyPI hosts the `oxipng-pybind` project, currently at `10.2.0`.
+- The 10.2.0 upstream bump created its release tag and published to PyPI.
 
 See the durable process docs for implementation details:
 
@@ -35,16 +35,15 @@ See the durable process docs for implementation details:
 
 ## What's Left To Do
 
-### Confirm upstream bumps create release tags automatically
+### Publish the 10.2.0.post1 dependency refresh
 
-The 10.2.0 upstream and dependency refresh is complete locally. Confirm the
-hosted release automation after the commit reaches `main` on GitHub.
+The dependency refresh is complete locally and requires a wrapper release.
+The 10.2.0.post1 version number is still available for a new PyPI release.
 
-When upstream publishes a newer release on GitHub and crates.io, run the
-hosted upstream bump workflow. Then confirm each of these steps:
+Complete the [manual release process](../process/manual-release.md) after the
+release changes reach `main`:
 
-1. The bump PR merges only after required checks pass.
-2. After the bump lands on `main`, `.github/workflows/release-tag.yml`
-   creates the matching release tag.
-3. `.github/workflows/wheels.yml` then publishes that tag through
-   `environment: pypi`.
+1. Confirm the required checks pass on the release commit.
+2. Rehearse the release on TestPyPI.
+3. Create and push `v10.2.0.post1`.
+4. Confirm the wheel workflow publishes 10.2.0.post1 to PyPI.

@@ -65,7 +65,7 @@ jobs:
           version: 0.11.12
       - uses: dtolnay/rust-toolchain@1.98.0
       - name: Install cargo-deny
-        uses: taiki-e/install-action@a2a5f6e99e1a31540baa0468acfa302cff0f359f
+        uses: taiki-e/install-action@b6ff580856c41316412a0b9b60540fbc6f8c82cc
         with:
           tool: cargo-deny@0.19.7
       - name: Sync dependencies
