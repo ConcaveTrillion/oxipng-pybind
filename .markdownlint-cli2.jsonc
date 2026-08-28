@@ -3,5 +3,5 @@
     "MD013": false,
     "MD033": false
   },
-  "globs": ["**/*.md", "!target/**", "!.venv/**", "!.cache/**", "!.claude/**", "!.codex/**", "!docs/issues/TEMPLATE.md", "!DOCGRAPH.md", "!CODEX.md"]
+  "globs": ["**/*.md", "!target/**", "!.venv/**", "!.venv-container/**", "!.cache/**", "!.claude/**", "!.codex/**", "!docs/issues/TEMPLATE.md", "!DOCGRAPH.md", "!CODEX.md"]
 }
