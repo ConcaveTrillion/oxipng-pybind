@@ -7,6 +7,10 @@ last_verified: 2026-08-28
 
 ## Release Notes
 
+## 10.2.1 - Bump Version
+
+- Rebuilt `oxipng-pybind` to track upstream `oxipng` 10.2.1.
+
 ## 10.2.0.post1 - Refresh runtime dependencies and release tooling
 
 - Updated `crc32fast` from 1.5.0 to 1.5.1, `libdeflate-sys` and `libdeflater`
