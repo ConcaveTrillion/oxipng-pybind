@@ -78,7 +78,7 @@ dependencies retain their upstream licenses and notices.
 - License: MIT OR Apache-2.0
 
 - Project: [oxipng](https://github.com/oxipng/oxipng)
-- Version: 10.2.0
+- Version: 10.2.1
 - License: MIT
 
 - Project: [portable-atomic](https://github.com/taiki-e/portable-atomic)

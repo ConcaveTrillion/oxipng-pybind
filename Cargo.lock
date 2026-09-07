@@ -143,9 +143,9 @@ checksum = "9f7c3e4beb33f85d45ae3e3a1792185706c8e16d043238c593331cc7cd313b50"
 
 [[package]]
 name = "oxipng"
-version = "10.2.0"
+version = "10.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f80e5d92fd65b00e3953760e6a7616264a509b6bbee22502e0226774204da1a3"
+checksum = "52a88e3e5c2ad82e691b219e2b45a90eb5a51d26a434c7e191563e957a48e07a"
 dependencies = [
  "indexmap",
  "libdeflater",
@@ -158,7 +158,7 @@ dependencies = [
 
 [[package]]
 name = "oxipng-pybind"
-version = "10.2.0"
+version = "10.2.1"
 dependencies = [
  "indexmap",
  "oxipng",

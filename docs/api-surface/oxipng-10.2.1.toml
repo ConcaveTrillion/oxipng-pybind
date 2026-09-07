@@ -1,0 +1,142 @@
+upstream_version = "10.2.1"
+manifest_scope = "Tracks upstream oxipng surface mapped or intentionally not mapped by this package. Python-only options such as backup and preserve_attrs are documented in stubs and usage docs."
+
+[functions]
+exposed = ["optimize", "optimize_from_memory"]
+
+[functions.wrapper]
+analyze = "wraps optimize with OutFile::None"
+
+[classes]
+exposed = ["Deflaters", "OptimizationResult", "RawImage"]
+
+[classes.Deflaters.methods]
+libdeflater = "Deflaters.libdeflater(compression) maps to Deflater::Libdeflater { compression }"
+zopfli = "Deflaters.zopfli(iterations) maps to Deflater::Zopfli with iteration_count"
+
+[classes.OptimizationResult.properties]
+original_size = "original input size in bytes"
+optimized_size = "optimized output size in bytes"
+
+[classes.RawImage.methods]
+constructor = "RawImage(width, height, color_type, bit_depth, data, *, palette=None, transparent=None)"
+create_optimized_png = "RawImage.create_optimized_png(**memory_options)"
+add_png_chunk = "RawImage.add_png_chunk(name, data)"
+add_icc_profile = "RawImage.add_icc_profile(data)"
+
+[exceptions]
+exposed = ["PngError"]
+
+[options.exposed]
+level = "Options::from_preset"
+interlace = "Options.interlace"
+strip = "Options.strip"
+deflate = "Options.deflater"
+filter = "Options.filters"
+fix_errors = "Options.fix_errors"
+force = "Options.force"
+optimize_alpha = "Options.optimize_alpha"
+bit_depth_reduction = "Options.bit_depth_reduction"
+color_type_reduction = "Options.color_type_reduction"
+palette_reduction = "Options.palette_reduction"
+grayscale_reduction = "Options.grayscale_reduction"
+idat_recoding = "Options.idat_recoding"
+scale_16 = "Options.scale_16"
+fast_evaluation = "Options.fast_evaluation"
+timeout = "Options.timeout"
+max_decompressed_size = "Options.max_decompressed_size"
+
+[enums.Interlacing.exposed]
+keep = "Options.interlace = None"
+off = "Options.interlace = Some(false)"
+on = "Options.interlace = Some(true)"
+
+[enums.StripChunks.exposed]
+none = "StripChunks::None"
+safe = "StripChunks::Safe"
+all = "StripChunks::All"
+Strip = "StripChunks::Strip via StripChunks.strip(names)"
+Keep = "StripChunks::Keep via StripChunks.keep(names)"
+
+[enums.Deflater.exposed]
+libdeflater = "Deflater::Libdeflater"
+zopfli = "Deflater::Zopfli(Default::default())"
+
+[enums.FilterStrategy.exposed]
+none = "FilterStrategy::Basic(RowFilter::None)"
+sub = "FilterStrategy::Basic(RowFilter::Sub)"
+up = "FilterStrategy::Basic(RowFilter::Up)"
+average = "FilterStrategy::Basic(RowFilter::Average)"
+paeth = "FilterStrategy::Basic(RowFilter::Paeth)"
+minsum = "FilterStrategy::MinSum"
+entropy = "FilterStrategy::Entropy"
+bigrams = "FilterStrategy::Bigrams"
+bigent = "FilterStrategy::BigEnt"
+brute = "FilterStrategy::Brute { num_lines: 3, level: 1 }"
+Predefined = "FilterStrategy::Predefined via FilterStrategy.predefined(filters)"
+
+[enums.ColorType.exposed]
+grayscale = "ColorType::Grayscale"
+rgb = "ColorType::RGB"
+indexed = "ColorType::Indexed"
+grayscale_alpha = "ColorType::GrayscaleAlpha"
+rgba = "ColorType::RGBA"
+
+[enums.BitDepth.exposed]
+one = "BitDepth::One"
+two = "BitDepth::Two"
+four = "BitDepth::Four"
+eight = "BitDepth::Eight"
+sixteen = "BitDepth::Sixteen"
+
+[enums.RowFilter.exposed]
+None = "RowFilter::None via RowFilter.none"
+Sub = "RowFilter::Sub via RowFilter.sub"
+Up = "RowFilter::Up via RowFilter.up"
+Average = "RowFilter::Average via RowFilter.average"
+Paeth = "RowFilter::Paeth via RowFilter.paeth"
+
+[python_compat.RowFilter.aliases]
+none = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+sub = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+up = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+average = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+paeth = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+minsum = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+entropy = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+bigrams = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+bigent = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+brute = "Python facade compatibility alias; maps through FilterStrategy, not upstream RowFilter"
+
+[enums.PngError.unexposed]
+APNGOutOfOrder = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+C2PAMetadataPreventsChanges = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+CRCMismatch = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+ChunkMissing = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+ChunkPreventsChanges = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+DeflatedDataTooLong = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+IncorrectDataLength = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+InflatedDataTooLong = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+InvalidData = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+InvalidDepthForType = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+NotPNG = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+Other = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+ReadFailed = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+TruncatedData = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+WriteFailed = "PngError is surfaced as a single flat Python exception; individual variants are not discriminated in the Python API."
+
+[enums.InFile.unexposed]
+Path = "input handled via file path / bytes; InFile enum not exposed to Python"
+StdIn = "stdio unsupported (see [notes].stdio)"
+
+[enums.OutFile.unexposed]
+None = "used internally by analyze() dry-run, OutFile enum not exposed"
+Path = "output handled via file path; OutFile enum not exposed"
+StdOut = "stdio unsupported (see [notes].stdio)"
+
+[notes]
+interlacing = "Python Interlacing.keep maps to leaving Options.interlace unchanged as None."
+libdeflater = "Python Deflater.libdeflater preserves the preset compression level."
+brute = "Python FilterStrategy.brute collapses to Brute { num_lines: 3, level: 1 }."
+dry_run = "Python analyze maps to OutFile::None."
+stdio = "InFile::StdIn and OutFile::StdOut remain unsupported."
