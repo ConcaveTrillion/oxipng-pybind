@@ -26,15 +26,15 @@ dependencies retain their upstream licenses and notices.
 - License: MIT OR Apache-2.0
 
 - Project: [crossbeam-deque](https://github.com/crossbeam-rs/crossbeam)
-- Version: 0.8.7
+- Version: 0.8.8
 - License: MIT OR Apache-2.0
 
 - Project: [crossbeam-epoch](https://github.com/crossbeam-rs/crossbeam)
-- Version: 0.9.20
+- Version: 0.9.21
 - License: MIT OR Apache-2.0
 
 - Project: [crossbeam-utils](https://github.com/crossbeam-rs/crossbeam)
-- Version: 0.8.22
+- Version: 0.8.23
 - License: MIT OR Apache-2.0
 
 - Project: [either](https://github.com/rayon-rs/either)
@@ -54,7 +54,7 @@ dependencies retain their upstream licenses and notices.
 - License: MIT OR Apache-2.0
 
 - Project: [indexmap](https://github.com/indexmap-rs/indexmap)
-- Version: 2.14.0
+- Version: 2.14.2
 - License: Apache-2.0 OR MIT
 
 - Project: [libc](https://github.com/rust-lang/libc)
